@@ -8,6 +8,7 @@ public class PucCrcApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PucCrcApplication.class, args);
+		System.out.println("aplicacao rodando");
 	}
 
 }

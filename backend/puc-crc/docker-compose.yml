@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: banco_postgres_crc
+    environment:
+      POSTGRES_DB: banco_postgres_crc
+      POSTGRES_USER: crc
+      POSTGRES_PASSWORD: crc
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    container_name: backend_crc
+    environment:
+      SPRING_APPLICATION_NAME: "puc-crc"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/banco_postgres_crc?TimeZone=America/Sao_Paulo"
+      SPRING_DATASOURCE_USERNAME: "crc"
+      SPRING_DATASOURCE_PASSWORD: "crc"
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: "org.postgresql.Driver"
+      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: "true"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
+      SPRING_JPA_GENERATE_DDL: "true"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres-data:
+
+
+
+
+
+
