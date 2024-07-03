@@ -16,13 +16,14 @@ import java.util.List;
 public class ParticipanteController {
     @Autowired
     private ParticipanteService participanteService;
-
+    @CrossOrigin(origins = "*")
     @PostMapping
     public ResponseEntity<Participante> cadastrarParticipante(@RequestBody ParticipanteDtoMini participante){
         Participante aux = participanteService.cadastrarParticipante(new Participante(participante));
         //status 201 CREATED
         return ResponseEntity.status(201).body(aux);
     }
+    @CrossOrigin(origins = "*")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarParticipantePorId(@PathVariable("id") Integer idPassado){
         Participante aux = participanteService.buscarParticipantePorId(idPassado);
@@ -34,18 +35,21 @@ public class ParticipanteController {
             return ResponseEntity.status(200).body(aux);
         }
     }
+    @CrossOrigin(origins = "*")
     @GetMapping
     public List<ParticipanteDto> mostrarTodosParticipantes(){
 
 
         return listParticipanteParaParticipanteDto(participanteService.mostrarTodosParticipantes());
     }
+    @CrossOrigin(origins = "*")
     @PutMapping("/{id}")
     public ResponseEntity<Participante> modificarParticipante(@PathVariable("id") Integer idPassado, @RequestBody ParticipanteDtoMini participante){
         Participante aux = participanteService.modificarParticipante(idPassado, participante);
         //status 200 ok e o evento que foi alterado
         return ResponseEntity.status(200).body(aux);
     }
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletarEvento(@PathVariable("id") Integer idPassado){
         boolean verifica = participanteService.deletarParticipante(idPassado);

@@ -17,6 +17,7 @@ import java.util.List;
 public class InscricaoController {
     @Autowired
     private InscricaoService inscricaoService;
+    @CrossOrigin(origins = "*")
     @PostMapping
     public ResponseEntity<?> fazerInscricao(@RequestBody InscricaoDtoMini inscricao){
         Inscricao aux = inscricaoService.fazerInscricao(inscricao.getEventoId(), inscricao.getParticipanteId());
@@ -29,17 +30,35 @@ public class InscricaoController {
         }
 
     }
+    @CrossOrigin(origins = "*")
     @GetMapping
-    public List<InscricaoDto> listarTodasInscricoes(){
-        return listInscricaoParaInscricaoDto(inscricaoService.listarTodasInscricoes());
+    public List<Inscricao> listarTodasInscricoes(){
+        return inscricaoService.listarTodasInscricoes();
     }
+    @CrossOrigin(origins = "*")
     @GetMapping("/buscar/participantes/{id}")
-    public List<InscricaoDto> listarTodosQueTemIdParticipante(@PathVariable("id") Integer idPassado ){
-        return listInscricaoParaInscricaoDto(inscricaoService.listarTodosQueTemIdParticipante(idPassado));
+    public List<Inscricao> listarTodosQueTemIdParticipante(@PathVariable("id") Integer idPassado ){
+        return inscricaoService.listarTodosQueTemIdParticipante(idPassado);
     }
+    @CrossOrigin(origins = "*")
     @GetMapping("/listar/participantes/evento/{id}")
     public List<Inscricao> listarParticipantesInscritoEmEvento(@PathVariable("id") Integer idPassado){
         return inscricaoService.listarParticipantesInscritoEmEvento(idPassado);
+    }
+
+    @CrossOrigin(origins = "*")
+    @DeleteMapping("/deletar/participantes/{id}")
+    public ResponseEntity<?> deletaPorParticipanteId(@PathVariable("id") Integer participanteId){
+        inscricaoService.deletaPorParticipanteId(participanteId);
+        //status 204 no content
+        return ResponseEntity.status(204).build();
+    }
+    @CrossOrigin(origins = "*")
+    @DeleteMapping("/cancelar/inscricao/evento")
+    public ResponseEntity<?> cancelarInscricaoParticipante(@RequestBody InscricaoDtoMini inscricao){
+        inscricaoService.cancelarInscricaoParticipante(inscricao.getParticipanteId(), inscricao.getEventoId());
+        //status 204 no content
+        return ResponseEntity.status(204).build();
     }
     public List<InscricaoDto> listInscricaoParaInscricaoDto(List<Inscricao> listaInscricoes){
         List<InscricaoDto> aux = new ArrayList<>();
@@ -47,18 +66,6 @@ public class InscricaoController {
             aux.add(new InscricaoDto(listaInscricoes.get(i)));
         }
         return aux;
-    }
-    @DeleteMapping("/deletar/participantes/{id}")
-    public ResponseEntity<?> deletaPorParticipanteId(@PathVariable("id") Integer participanteId){
-        inscricaoService.deletaPorParticipanteId(participanteId);
-        //status 204 no content
-        return ResponseEntity.status(204).build();
-    }
-    @DeleteMapping("/cancelar/inscricao/evento")
-    public ResponseEntity<?> cancelarInscricaoParticipante(@RequestBody InscricaoDtoMini inscricao){
-        inscricaoService.cancelarInscricaoParticipante(inscricao.getParticipanteId(), inscricao.getEventoId());
-        //status 204 no content
-        return ResponseEntity.status(204).build();
     }
 
 }

@@ -24,13 +24,14 @@ public class EventoControler {
 
     @Autowired
     private EventoService eventoService;
-
+    @CrossOrigin(origins = "*")
     @PostMapping
     public ResponseEntity<Evento> cadastrarEvento(@RequestBody EventoDtoMini evento){
         Evento aux =  eventoService.cadastrarEvento(new Evento(evento));
         //status 201 CREATED
         return ResponseEntity.status(201).body(aux);
     }
+    @CrossOrigin(origins = "*")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarEventoPorId(@PathVariable("id") Integer idPassado){
         Evento aux = eventoService.buscarEventoPorId(idPassado);
@@ -44,16 +45,19 @@ public class EventoControler {
 
 
     }
+    @CrossOrigin(origins = "*")
     @GetMapping
     public List<Evento> mostrarTodosEventos(){
         return eventoService.mostrarTodosEventos();
     }
+    @CrossOrigin(origins = "*")
     @PutMapping("/{id}")
     public ResponseEntity<Evento> modificarEvento(@PathVariable("id") Integer idPassado, @RequestBody EventoDtoMini evento){
         Evento aux = eventoService.modificarEvento(idPassado, evento);
         //status 200 ok e o evento que foi alterado
         return ResponseEntity.status(200).body(aux);
     }
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletarEvento(@PathVariable("id") Integer idPassado ){
         boolean verifica = eventoService.deletarEvento(idPassado);
@@ -66,20 +70,24 @@ public class EventoControler {
         }
 
     }
+    @CrossOrigin(origins = "*")
     @GetMapping("/filtrar/ativos")
     public List<Evento> filtrarEventosAtivos(){
         return eventoService.filtrarEventosAtivos();
     }
+    @CrossOrigin(origins = "*")
     @GetMapping("/filtrar/inativos")
     public List<Evento> filtrarEventosInativos(){
 
         return eventoService.filtrarEventosInativos();
     }
+    @CrossOrigin(origins = "*")
     @GetMapping("/filtrar/prazo-submicao")
     public List<Evento> filtrarEventosPorPrazoSubmissao(@RequestBody PrazoSub prazo){
 
         return eventoService.filtrarEventosPorPrazoSubmissao(prazo.getPrazoSubmissao());
     }
+    @CrossOrigin(origins = "*")
     @GetMapping("/filtrar/prazo-inscricao")
     public List<Evento> filtrarEventosPorPrazoInscricao(@RequestBody PrazoIns prazo){
 

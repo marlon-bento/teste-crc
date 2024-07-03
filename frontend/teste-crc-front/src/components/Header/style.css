@@ -1,0 +1,21 @@
+.container-menu-header{
+    display: flex;
+    background-color: var(--cor-primary);
+    padding: 20px;
+    justify-content: end;
+}
+.menu-header{
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+.link-menu{
+    text-decoration: none;
+    color: rgb(214, 203, 203);
+    font-weight: bold;
+    font-size: 23px;
+    
+}
+.link-menu:hover{
+    color: rgb(235, 235, 235);
+}
