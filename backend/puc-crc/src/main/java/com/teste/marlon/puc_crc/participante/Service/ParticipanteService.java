@@ -2,6 +2,7 @@ package com.teste.marlon.puc_crc.participante.Service;
 
 
 
+import com.teste.marlon.puc_crc.inscricao.Repository.InscricaoRepository;
 import com.teste.marlon.puc_crc.participante.Dto.ParticipanteDtoMini;
 import com.teste.marlon.puc_crc.participante.Entity.Participante;
 import com.teste.marlon.puc_crc.participante.Repository.ParticipanteRepository;
@@ -15,6 +16,8 @@ import java.util.List;
 public class ParticipanteService {
     @Autowired
     private ParticipanteRepository repositorio;
+    @Autowired
+    InscricaoRepository inscricaoRepository;
     @Transactional
     public Participante cadastrarParticipante(Participante participante){
         return repositorio.save(participante);
@@ -24,7 +27,7 @@ public class ParticipanteService {
     }
     public Participante buscarParticipantePorId(Integer id){
         //retorna um usuário ou lança uma excecao
-        return repositorio.findById(id).orElseThrow(() -> new RuntimeException("Participante não encontrado"));
+        return repositorio.findById(id).orElse(null);
     }
     @Transactional
     public Participante modificarParticipante(Integer id, ParticipanteDtoMini participante){
@@ -37,8 +40,11 @@ public class ParticipanteService {
         aux.setAtivo(participante.isAtivo());
         return aux;
     }
+    @Transactional
     public boolean deletarParticipante(Integer id){
         if(repositorio.existsById(id)){
+            //deleta todas inscricoes que tenha esse participante
+            inscricaoRepository.deleteByParticipanteId(id);
             //participante existe e foi deletado
             repositorio.deleteById(id);
             return true;

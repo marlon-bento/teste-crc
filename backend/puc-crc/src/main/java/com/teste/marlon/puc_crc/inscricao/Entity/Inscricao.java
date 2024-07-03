@@ -8,12 +8,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
+
 @Entity
-@Table(name = "Inscricao")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Table(name = "inscricao")
+@Getter @Setter
 public class Inscricao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,4 +29,18 @@ public class Inscricao {
 
     @Column(name = "data")
     private LocalDateTime data;
+
+    /*antes de persistir no banco de dados vai executar essa funcao
+    e pegar a data atual*/
+    @PrePersist
+    protected void onCreate() {
+        this.data = LocalDateTime.now();
+    }
+    public Inscricao(){
+
+    }
+    public Inscricao(Evento event, Participante part){
+        this.evento = event;
+        this.participante = part;
+    }
 }

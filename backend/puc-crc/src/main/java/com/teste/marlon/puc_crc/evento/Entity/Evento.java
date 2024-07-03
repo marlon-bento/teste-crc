@@ -2,17 +2,16 @@ package com.teste.marlon.puc_crc.evento.Entity;
 
 import com.teste.marlon.puc_crc.evento.Dto.EventoDtoMini;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.Serializable;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Objects;
+
 
 @Entity
-@Table(name = "Evento")
+@Table(name = "evento")
 @Getter @Setter
 public class Evento {
     @Id
@@ -30,10 +29,10 @@ public class Evento {
     private boolean ativo;
 
     @Column(name = "prazo_inscricao")
-    private LocalDateTime prazoInscricao;
+    private LocalDate prazoInscricao;
 
     @Column(name = "prazo_submissao")
-    private LocalDateTime prazoSubmissao;
+    private LocalDate prazoSubmissao;
 
     public Evento(){
 
@@ -42,7 +41,8 @@ public class Evento {
         this.nome = event.getNome();
         this.descricao= event.getDescricao();
         this.ativo = event.isAtivo();
-
+        this.prazoInscricao = event.getPrazoInscricao();
+        this.prazoSubmissao = event.getPrazoSubmissao();
 
     }
 

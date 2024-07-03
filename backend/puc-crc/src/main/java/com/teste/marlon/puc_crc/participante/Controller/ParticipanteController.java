@@ -1,5 +1,6 @@
 package com.teste.marlon.puc_crc.participante.Controller;
 
+import com.teste.marlon.puc_crc.participante.Dto.ParticipanteDto;
 import com.teste.marlon.puc_crc.participante.Dto.ParticipanteDtoMini;
 import com.teste.marlon.puc_crc.participante.Entity.Participante;
 import com.teste.marlon.puc_crc.participante.Service.ParticipanteService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,14 +24,21 @@ public class ParticipanteController {
         return ResponseEntity.status(201).body(aux);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Participante> buscarParticipantePorId(@PathVariable("id") Integer idPassado){
+    public ResponseEntity<?> buscarParticipantePorId(@PathVariable("id") Integer idPassado){
         Participante aux = participanteService.buscarParticipantePorId(idPassado);
-        //status 200 ok e o evento que foi buscado
-        return ResponseEntity.status(200).body(aux);
+        if(aux == null){
+            //404 not found id não encontrado
+            return ResponseEntity.status(404).body("id não foi encontrado");
+        }else{
+            //status 200 ok e o evento que foi buscado
+            return ResponseEntity.status(200).body(aux);
+        }
     }
     @GetMapping
-    public List<Participante> mostrarTodosParticipantes(){
-        return participanteService.mostrarTodosParticipantes();
+    public List<ParticipanteDto> mostrarTodosParticipantes(){
+
+
+        return listParticipanteParaParticipanteDto(participanteService.mostrarTodosParticipantes());
     }
     @PutMapping("/{id}")
     public ResponseEntity<Participante> modificarParticipante(@PathVariable("id") Integer idPassado, @RequestBody ParticipanteDtoMini participante){
@@ -47,6 +56,14 @@ public class ParticipanteController {
             //status 404 not found (não existe o id passado)
             return ResponseEntity.status(404).body("Participante não existe");
         }
+    }
+    public List<ParticipanteDto> listParticipanteParaParticipanteDto(List<Participante> listaParticipantes){
+
+        List<ParticipanteDto> aux = new ArrayList<>();
+        for(int i = 0; i< listaParticipantes.size(); i++){
+            aux.add(new ParticipanteDto(listaParticipantes.get(i)));
+        }
+        return aux;
     }
 
 

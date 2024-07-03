@@ -1,6 +1,7 @@
 package com.teste.marlon.puc_crc.participante.Dto;
 
 
+import com.teste.marlon.puc_crc.participante.Entity.Participante;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,4 +13,11 @@ public class ParticipanteDto {
     private String email;
     private String nome;
     private boolean ativo;
+
+    public ParticipanteDto(Participante participante){
+        this.id = participante.getId();
+        this.email = participante.getEmail();
+        this.nome = participante.getNome();
+        this.ativo = participante.isAtivo();
+    }
 }
