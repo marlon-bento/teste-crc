@@ -40,7 +40,8 @@ public class EventoService {
         aux.setNome(evento.getNome());
         aux.setDescricao(evento.getDescricao());
         aux.setAtivo(evento.isAtivo());
-
+        aux.setPrazoSubmissao(evento.getPrazoSubmissao());
+        aux.setPrazoInscricao(evento.getPrazoInscricao());
         return aux;
     }
     @Transactional

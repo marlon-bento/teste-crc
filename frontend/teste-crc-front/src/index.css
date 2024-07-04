@@ -20,15 +20,11 @@
   --cor-pressao:#afb12d;
   font-family: "Inter", sans-serif;
 }
-.container{
-  padding: 0 30px;
-}
+
 body{
   background-color: rgb(241, 239, 239);
 }
-.cardEvento{
-  margin-bottom: 15px;
-  padding: 10px;
-  background-color: var(--cor-info);
-  border-radius: 15px;
+
+.bold{
+  font-weight: bold;
 }

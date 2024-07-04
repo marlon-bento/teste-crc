@@ -54,9 +54,9 @@ public class InscricaoController {
         return ResponseEntity.status(204).build();
     }
     @CrossOrigin(origins = "*")
-    @DeleteMapping("/cancelar/inscricao/evento")
-    public ResponseEntity<?> cancelarInscricaoParticipante(@RequestBody InscricaoDtoMini inscricao){
-        inscricaoService.cancelarInscricaoParticipante(inscricao.getParticipanteId(), inscricao.getEventoId());
+    @DeleteMapping("/cancelar/evento/{idEvento}/participante/{idPart}")
+    public ResponseEntity<?> cancelarInscricaoParticipante(@PathVariable("idEvento") Integer idEvento, @PathVariable("idPart") Integer idPart){
+        inscricaoService.cancelarInscricaoParticipante(idPart, idEvento);
         //status 204 no content
         return ResponseEntity.status(204).build();
     }

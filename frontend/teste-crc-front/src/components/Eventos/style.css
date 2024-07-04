@@ -7,7 +7,7 @@
     margin-top: 10px;
     gap: 10px;
 }
-form{
+.formCadastrar{
     margin-top: 10px;
     display: flex;
     flex-direction: column;
@@ -33,6 +33,25 @@ form{
     display: flex;
     justify-content: center;
   }
-  .containerBotaoCadastro button{
+
+  .containerModal{
+    z-index: 80;
+    background-color: rgb(66, 65, 65);
+    width: 500px;
+    height: 600px;
+    border-radius: 20px;
     
+
+  }
+  .foraDoModal{
+    position: fixed;
+    min-width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+  .cardEvento{
+    border-radius: 15px;
   }
